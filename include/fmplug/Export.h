@@ -25,10 +25,14 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 #define _FMPLUG_EXPORT_H
 
 #ifdef _WIN32
-	#ifdef libfmplug_EXPORTS
-		#define FMPLUG_API __declspec(dllexport)
+	#ifdef libfmplug_STATIC
+		#define FMPLUG_API
 	#else
-		#define FMPLUG_API __declspec(dllimport)
+		#ifdef libfmplug_EXPORTS
+			#define FMPLUG_API __declspec(dllexport)
+		#else
+			#define FMPLUG_API __declspec(dllimport)
+		#endif
 	#endif
 #else
 	#define FMPLUG_API

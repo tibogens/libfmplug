@@ -25,7 +25,10 @@ if (WIN32)
 	list(APPEND PLUGIN_SRC pch.h)
 endif (WIN32)
 
+ADD_DEFINITIONS(-Dlibfmplug_STATIC)
+
 ADD_LIBRARY (${PLUGIN_NAME}
+	SHARED
 	${PLUGIN_SRC}
 )
 

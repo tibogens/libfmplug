@@ -51,8 +51,10 @@ if (WIN32)
 	#endforeach( src_file ${LIB_SRC} )
 endif (WIN32)
 
+ADD_DEFINITIONS(-Dlibfmplug_STATIC)
+
 ADD_LIBRARY(${LIB_NAME}
-	SHARED
+	STATIC
     ${LIB_PUBLIC_HEADERS}
 	${LIB_SRC}
 )
