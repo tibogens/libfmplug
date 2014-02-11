@@ -107,7 +107,7 @@ public:
 	}; \
 	void FMExternCallProc(FMX_ExternCallPtr pb) \
 	{ \
-		MyPluginFactory factory(pb); \
+		className##Factory factory(pb); \
 	}
 
 

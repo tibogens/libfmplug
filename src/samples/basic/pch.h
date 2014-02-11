@@ -31,3 +31,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+// Use precompiled headers only on Windows, otherwise it'll just slow down
+// other builds as they'd have to include all of the stdlib even when they
+// don't use it.
+#ifdef _WIN32
+
+#include <string>
+#include <map>
+#include <vector>
+#include <algorithm> 
+#include <functional> 
+#include <cctype>
+#include <locale>
+#include <sstream>
+
+#endif // _WIN32
