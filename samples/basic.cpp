@@ -56,13 +56,13 @@ public:
 	}
 };
 
-class MyPlugin : public fmpesc::Plugin
+class BasicPlugin : public fmpesc::Plugin
 {
 public:
-	MyPlugin() : fmpesc::Plugin("ESCC", "MyPlugin", "This is some help text") {}
+	BasicPlugin() : fmpesc::Plugin("LFMP", "BasicPlugin", "This is some help text that appears in the Edit/Preferences/Plug-ins panel when BasicPlugin is selected. This plugin defines three dummy functions named testproc1-2-3 that take an int and a string, and return a string.") {}
 	bool hasPreferences() const { return true; }
 	void showPreferences() {
-		fmpesc::BasicDialogBox("This is the configuration dialog for MyPlugin", "MyPlugin settings", fmpesc::DLGSTYLE_INFO);
+		fmpesc::BasicDialogBox("This is a dummy configuration dialog for BasicPlugin. You will need to use your own windowing code to show a real preferences dialog until libfmplug supports some basic controls (e.g. using wxWidgets/Qt)", "BasicPlugin settings", fmpesc::DLGSTYLE_INFO);
 	};
 protected:
 	void declareFunctions()
@@ -73,4 +73,4 @@ protected:
 	}
 };
 
-DECLARE_PLUGIN(MyPlugin);
+DECLARE_PLUGIN(BasicPlugin);
