@@ -1,3 +1,4 @@
-./bin/
-./lib/
-./build/
+bin/
+lib/
+build/
+FMWrapper.lib

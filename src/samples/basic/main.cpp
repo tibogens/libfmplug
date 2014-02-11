@@ -32,43 +32,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <iostream>
-#include <fmpesc/Plugin.h>
+#include <fmplug/Plugin.h>
 #include <FMWrapper/FMXText.h>
-#include <fmpesc/TypeMaps.h>
-#include <fmpesc/Utils.h>
+#include <fmplug/TypeMaps.h>
+#include <fmplug/Utils.h>
 
 std::string testproc2_hook(const int& x, const std::string& y)
 {
 	return "Hello world ! (from C++ template)\r"+y;
 }
 
-class MyFunction : public fmpesc::Function
+class MyFunction : public fmplug::Function
 {
 public:
 	MyFunction() : Function("testproc3(int x, string y):string") {}
 	void operator()(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Data& result)
 	{
-		int x = fmpesc::TM_GetArg<int>(parms, 0);
-		std::string y = fmpesc::TM_GetArg<std::string>(parms, 1);
+		int x = fmplug::TM_GetArg<int>(parms, 0);
+		std::string y = fmplug::TM_GetArg<std::string>(parms, 1);
 		std::string value = "Hello world ! (from low-level fmx function)\r"+y;
 
-		fmpesc::TM_SetArg(result, value);
+		fmplug::TM_SetArg(result, value);
 	}
 };
 
-class BasicPlugin : public fmpesc::Plugin
+class BasicPlugin : public fmplug::Plugin
 {
 public:
-	BasicPlugin() : fmpesc::Plugin("LFMP", "BasicPlugin", "This is some help text that appears in the Edit/Preferences/Plug-ins panel when BasicPlugin is selected. This plugin defines three dummy functions named testproc1-2-3 that take an int and a string, and return a string.") {}
+	BasicPlugin() : fmplug::Plugin("LFMP", "BasicPlugin", "This is some help text that appears in the Edit/Preferences/Plug-ins panel when BasicPlugin is selected. This plugin defines three dummy functions named testproc1-2-3 that take an int and a string, and return a string.") {}
 	bool hasPreferences() const { return true; }
 	void showPreferences() {
-		fmpesc::BasicDialogBox("This is a dummy configuration dialog for BasicPlugin. You will need to use your own windowing code to show a real preferences dialog until libfmplug supports some basic controls (e.g. using wxWidgets/Qt)", "BasicPlugin settings", fmpesc::DLGSTYLE_INFO);
+		fmplug::BasicDialogBox("This is a dummy configuration dialog for BasicPlugin. You will need to use your own windowing code to show a real preferences dialog until libfmplug supports some basic controls (e.g. using wxWidgets/Qt)", "BasicPlugin settings", fmplug::DLGSTYLE_INFO);
 	};
 protected:
 	void declareFunctions()
 	{
-		registerFunction(new fmpesc::DummyFunction("testproc(int x, string y):string"));
-		registerFunction(new fmpesc::SimpleFunction2<fmpesc::TMText,fmpesc::TMInt,fmpesc::TMText>("testproc2", "x", "y", &testproc2_hook));
+		registerFunction(new fmplug::DummyFunction("testproc(int x, string y):string"));
+		registerFunction(new fmplug::SimpleFunction2<fmplug::TMText,fmplug::TMInt,fmplug::TMText>("testproc2", "x", "y", &testproc2_hook));
 		registerFunction(new MyFunction());
 	}
 };
