@@ -25,6 +25,7 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 #include <sstream>
 #include <vector>
 #include <assert.h>
+#include <fmplug/Setup.h>
 #include <fmplug/Plugin.h>
 #include <fmplug/UtfConv.h>
 #include <fmplug/Utils.h>

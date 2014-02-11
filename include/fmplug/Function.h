@@ -41,7 +41,7 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 namespace fmplug
 {
 
-class Function
+class FMPLUG_API Function
 {
 public:
 	enum ArgumentType
@@ -53,7 +53,7 @@ public:
 		AT_FLOAT,
 		AT_DATETIME,
 	};
-	struct Argument
+	struct FMPLUG_API Argument
 	{
 		Argument(ArgumentType type, const std::string& name, bool optional=false) : type(type), name(name), optional(optional) {}
 
@@ -105,7 +105,7 @@ private:
 	unsigned int _flags;
 };
 
-class DummyFunction : public Function
+class FMPLUG_API DummyFunction : public Function
 {
 public:
 	DummyFunction(const std::string& declaration, unsigned int flags = 0) : Function(declaration, flags) {}

@@ -11,6 +11,7 @@ SET(LIB_PUBLIC_HEADERS
 	${HEADER_PATH}/Export.h
 	${HEADER_PATH}/Function.h
 	${HEADER_PATH}/Plugin.h
+	${HEADER_PATH}/Setup.h
 	${HEADER_PATH}/TypeMaps.h
 	${HEADER_PATH}/UtfConv.h
 	${HEADER_PATH}/Utils.h

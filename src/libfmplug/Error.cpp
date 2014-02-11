@@ -22,6 +22,7 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "pch.h"
+#include <fmplug/Setup.h>
 #include <fmplug/Error.h>
 #include <windows.h>
 #ifndef _WIN32

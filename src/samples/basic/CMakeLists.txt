@@ -1,11 +1,10 @@
-SET(APP_NAME test_basic)
+SET(SAMPLE_NAME basic)
+SET(PLUGIN_NAME sample_${SAMPLE_NAME})
 
 FIND_PACKAGE(FMProSDK REQUIRED)
 INCLUDE_DIRECTORIES(${FMPROSDK_INCLUDE_DIRS})
 
-#LINK_DIRECTORIES(${libfmplug_BINARY_DIR}/uflr)
-
-SET(APP_SRC
+SET(PLUGIN_SRC
 	main.cpp
 )
 
@@ -15,24 +14,24 @@ if (WIN32)
 		PROPERTIES
 		COMPILE_FLAGS "/Ycpch.h"
 		)
-    foreach( src_file ${APP_SRC} )
+    foreach( src_file ${PLUGIN_SRC} )
         set_source_files_properties(
             ${src_file}
             PROPERTIES
             COMPILE_FLAGS "/Yupch.h"
             )
-    endforeach( src_file ${APP_SRC} )
-    list(APPEND APP_SRC pch.cpp)
-	list(APPEND APP_SRC pch.h)
+    endforeach( src_file ${PLUGIN_SRC} )
+    list(APPEND PLUGIN_SRC pch.cpp)
+	list(APPEND PLUGIN_SRC pch.h)
 endif (WIN32)
 
-ADD_EXECUTABLE (${APP_NAME}
-	${APP_SRC}
+ADD_LIBRARY (${PLUGIN_NAME}
+	${PLUGIN_SRC}
 )
 
-SET_TARGET_PROPERTIES(${APP_NAME} PROPERTIES DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
+SET_TARGET_PROPERTIES(${PLUGIN_NAME} PROPERTIES DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}")
 
-TARGET_LINK_LIBRARIES (${APP_NAME} libfmplug
+TARGET_LINK_LIBRARIES (${PLUGIN_NAME} libfmplug
 ) 
 
-SET_TARGET_PROPERTIES(${APP_NAME} PROPERTIES PROJECT_LABEL "test - ${APP_NAME}")
+SET_TARGET_PROPERTIES(${PLUGIN_NAME} PROPERTIES PROJECT_LABEL "sample - ${SAMPLE_NAME}")

@@ -1,7 +1,7 @@
-SET(ALL_TESTS
+SET(ALL_SAMPLES
 	basic
 )
 
-FOREACH (mytest ${ALL_TESTS})
-    ADD_SUBDIRECTORY(${mytest})
-ENDFOREACH (mytest)
+FOREACH (mysample ${ALL_SAMPLES})
+    ADD_SUBDIRECTORY(${mysample})
+ENDFOREACH (mysample)

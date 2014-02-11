@@ -35,7 +35,7 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 namespace fmplug
 {
 
-class FMStringCache
+class FMPLUG_API FMStringCache
 {
 public:
 	const std::wstring& get(int key, bool* found) const;
@@ -80,7 +80,7 @@ enum BasicDialogBoxStyle
 	DLGSTYLE_ERROR			= 0x0400,
 };
 
-int BasicDialogBox(const std::string& message, const std::string& title, unsigned int style=DLGSTYLE_OK);
+FMPLUG_API int BasicDialogBox(const std::string& message, const std::string& title, unsigned int style=DLGSTYLE_OK);
 
 };
 

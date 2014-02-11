@@ -22,6 +22,7 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "pch.h"
+#include <fmplug/Setup.h>
 #include <fmplug/UtfConv.h>
 #include <windows.h>
 using namespace fmplug;

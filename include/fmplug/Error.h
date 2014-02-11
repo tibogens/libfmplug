@@ -31,9 +31,9 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 namespace fmplug
 {
 
-int LastError();
+FMPLUG_API int LastError();
 
-class Error
+class FMPLUG_API Error
 {
 public:
 	Error();
@@ -46,7 +46,7 @@ public:
 
 	inline const std::string& getReason() const { return _reason; }
 
-	friend std::ostream& operator<<(std::ostream& stream, const Error& err);
+	friend FMPLUG_API std::ostream& operator<<(std::ostream& stream, const Error& err);
 
 protected:
 	void set(const char* reason, ...);
@@ -56,7 +56,7 @@ private:
 	std::string _reason;
 };
 
-std::ostream& operator<<(std::ostream& stream, const Error& err);
+FMPLUG_API std::ostream& operator<<(std::ostream& stream, const Error& err);
 
 };
 

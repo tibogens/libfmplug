@@ -45,7 +45,7 @@ namespace fmplug
 
 class PluginFactory;
 
-class Plugin
+class FMPLUG_API Plugin
 {
 public:
 	Plugin(const std::string& id, const std::string& name, const std::string& help);
@@ -88,7 +88,7 @@ public:
 	static void main(FMX_ExternCallPtr pb, PluginFactory* factory);
 };
 
-class PluginFactory
+class FMPLUG_API PluginFactory
 {
 public:
 	PluginFactory(FMX_ExternCallPtr pb) {}

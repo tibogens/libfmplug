@@ -33,6 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "pch.h"
 #include <iostream>
+#include <fmplug/Setup.h>
 #include <fmplug/Plugin.h>
 #include <FMWrapper/FMXText.h>
 #include <fmplug/TypeMaps.h>

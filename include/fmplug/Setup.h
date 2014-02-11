@@ -21,18 +21,13 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef _FMPLUG_EXPORT_H
-#define _FMPLUG_EXPORT_H
+#ifndef _FMPLUG_SETUP_H
+#define _FMPLUG_SETUP_H
 
 #ifdef _WIN32
-	#ifdef libfmplug_EXPORTS
-		#define FMPLUG_API __declspec(dllexport)
-	#else
-		#define FMPLUG_API __declspec(dllimport)
-	#endif
-#else
-	#define FMPLUG_API
+	// Disables C4251: 'foo' needs to have dll-interface to be used by clients of class 'bar'
+	// Because as long as we're using the same CRT we're fine (bottom line: use the same CRT)
+	#pragma warning (disable: 4251)
 #endif
 
-
-#endif //_FMPLUG_EXPORT_H
+#endif //_FMPLUG_SETUP_H

@@ -21,18 +21,21 @@ along with libfmplug.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#ifndef _FMPLUG_EXPORT_H
-#define _FMPLUG_EXPORT_H
+#include <iostream>
+#include <fmplug/Setup.h>
+#include <fmplug/Plugin.h>
+#include <fmplug/Error.h>
 
-#ifdef _WIN32
-	#ifdef libfmplug_EXPORTS
-		#define FMPLUG_API __declspec(dllexport)
-	#else
-		#define FMPLUG_API __declspec(dllimport)
-	#endif
-#else
-	#define FMPLUG_API
-#endif
-
-
-#endif //_FMPLUG_EXPORT_H
+int main(int argc, char* argv[])
+{
+	try
+	{
+		fmplug::DummyFunction f("testfunc(int a, float b, text c):int");
+	}
+	catch (fmplug::Error& err)
+	{
+		std::cout << "ERROR: " << err << std::endl;
+		return 1;
+	}
+	return 0;
+}
