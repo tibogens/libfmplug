@@ -26,6 +26,7 @@ ELSE (CMAKE_CL_64)
 	SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${fmplug_SOURCE_DIR}/bin)
 ENDIF (CMAKE_CL_64)
 
+OPTION (FMPLUG_STATIC "Build the static version of the library (WARNING: LGPL is tricky w.r.t. statically linked libs, see the README)" OFF)
 OPTION (FMPLUG_BUILD_TESTS "Build the tests" ON)
 OPTION (FMPLUG_BUILD_SAMPLES "Build the sample plugins" ON)
 OPTION (FMPLUG_USE_WXWIDGETS "Build the wxWidgets-based components" OFF)
