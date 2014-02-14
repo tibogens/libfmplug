@@ -1,5 +1,6 @@
 SET(ALL_LIBS
 	libfmplug
+	fmwrap
 )
 
 IF (FMPLUG_USE_WXWIDGETS)
