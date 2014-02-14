@@ -297,11 +297,3 @@ void Function::call(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Da
 	// Call the actual implementation
 	(*this)(env, parms, result);
 }
-
-
-void Function::operator()(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Data& result)
-{
-	fmx::TextAutoPtr text;
-	text->Assign("pure virtual function call");
-	result.SetAsText(*text, parms.At(0).GetLocale());
-}

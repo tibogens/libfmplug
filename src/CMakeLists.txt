@@ -1,5 +1,6 @@
 SET(ALL_LIBS
 	libfmplug
+	libfmutils
 	fmwrap
 )
 

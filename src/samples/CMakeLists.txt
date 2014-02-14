@@ -1,5 +1,6 @@
 SET(ALL_SAMPLES
 	basic
+	popen
 )
 
 FOREACH (mysample ${ALL_SAMPLES})
