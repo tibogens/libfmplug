@@ -27,6 +27,7 @@ ELSE (CMAKE_CL_64)
 ENDIF (CMAKE_CL_64)
 
 OPTION (FMPLUG_STATIC "Build the static version of the library (WARNING: LGPL is tricky w.r.t. statically linked libs, see the README)" OFF)
+OPTION (FMPLUG_STATIC_CRT "Link statically against the C runtime (uses /MT if checked, /MD otherwise)" OFF)
 OPTION (FMPLUG_BUILD_TESTS "Build the tests" ON)
 OPTION (FMPLUG_BUILD_SAMPLES "Build the sample plugins" ON)
 OPTION (FMPLUG_USE_WXWIDGETS "Build the wxWidgets-based components" OFF)
@@ -76,5 +77,24 @@ ENDFOREACH (mymacro ${OPTIONS_TO_CPP_PREPROCESSOR})
 IF (WIN32 AND FMPLUG_MSVC_INSTRUMENT_DEBUG)
 	SET_PROPERTY(DIRECTORY PROPERTY COMPILE_DEFINITIONS_DEBUG ${CurrentDebugFlags};_CRTDBG_MAP_ALLOC)
 ENDIF (WIN32 AND FMPLUG_MSVC_INSTRUMENT_DEBUG)
+
+IF (FMPLUG_STATIC_CRT)
+	# Set the appropriate C runtime, according to this StackOverflow answer
+	# http://stackoverflow.com/questions/14172856/cmake-compile-with-mt-instead-of-md
+	# Credit to @Fraser
+	set(CompilerFlags
+			CMAKE_CXX_FLAGS_DEBUG
+			CMAKE_CXX_FLAGS_MINSIZEREL
+			CMAKE_CXX_FLAGS_RELEASE
+			CMAKE_CXX_FLAGS_RELWITHDBGINFO
+			CMAKE_C_FLAGS_DEBUG
+			CMAKE_C_FLAGS_MINSIZEREL
+			CMAKE_C_FLAGS_RELEASE
+			CMAKE_C_FLAGS_RELWITHDBGINFO
+			)
+	foreach(CompilerFlag ${CompilerFlags})
+	  string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+	endforeach()
+ENDIF (FMPLUG_STATIC_CRT)
 
 ADD_SUBDIRECTORY(src)
