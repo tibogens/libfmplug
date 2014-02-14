@@ -149,6 +149,7 @@ public:
 	SimpleFunction0(const std::string& name, Hook func)
 		: Function(name, Arguments()), _hook(func)
 	{
+		setReturnType(r::AT);
 	}
 	void operator()(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Data& result)
 	{
@@ -167,6 +168,7 @@ public:
 	SimpleFunction1(const std::string& name, const std::string& a1name, Hook func)
 		: Function(name, Arguments()), _hook(func)
 	{
+		setReturnType(r::AT);
 		addArgument(Argument(a1::AT, a1name));
 	}
 	void operator()(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Data& result)
@@ -186,6 +188,7 @@ public:
 	SimpleFunction2(const std::string& name, const std::string& a1name, const std::string& a2name, Hook func)
 		: Function(name, Arguments()), _hook(func)
 	{
+		setReturnType(r::AT);
 		addArgument(Argument(a1::AT, a1name));
 		addArgument(Argument(a2::AT, a2name));
 	}
@@ -206,6 +209,7 @@ public:
 	SimpleFunction3(const std::string& name, const std::string& a1name, const std::string& a2name, const std::string& a3name, Hook func)
 		: Function(name, Arguments()), _hook(func)
 	{
+		setReturnType(r::AT);
 		addArgument(Argument(a1::AT, a1name));
 		addArgument(Argument(a2::AT, a2name));
 		addArgument(Argument(a3::AT, a3name));

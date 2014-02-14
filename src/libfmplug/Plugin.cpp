@@ -250,6 +250,7 @@ FMX_PROC(fmx::errcode) g_funcall(short functionId, const fmx::ExprEnv& env, cons
 {
 	if (!g_plugin)
 	{
+		BasicDialogBox("No plugin instance exists. This is very unexpected, and (most probably) indicates a bug in the plugin", "Plugin error", DLGSTYLE_OK | DLGSTYLE_ERROR);
 		return 1;
 	}
 	else
@@ -259,8 +260,24 @@ FMX_PROC(fmx::errcode) g_funcall(short functionId, const fmx::ExprEnv& env, cons
 			g_plugin->callFunction(functionId, env, parms, result);
 			return 0;
 		}
-		catch (Error&)
+		catch (Error& err)
 		{
+			std::stringstream ss;
+			ss << "Unhandled exception in plugin '" << g_plugin->getName() << "'";
+			const Function* func = NULL;
+			try {
+				func = g_plugin->getFunction(functionId);
+			} catch (Error&) {}
+					
+			if (func)
+			{
+				ss << std::endl << err.getReason();
+			}
+			else
+			{
+				ss << " while calling function '" << func->getName() << "'" << std::endl << err.getReason();
+				BasicDialogBox(ss.str(), "Error in external function call", DLGSTYLE_OK | DLGSTYLE_ERROR);
+			}
 			return 2;
 		}
 	}
@@ -273,6 +290,14 @@ void Plugin::callFunction(short int functionId, const fmx::ExprEnv& env, const f
 		throw Error("No such function Id: %d", functionId);
 
 	fit->second->call(env, parms, result);
+}
+
+const Function* const Plugin::getFunction(short int id) const
+{
+	FunctionsById::const_iterator fit = _functionsById.find(id);
+	if (fit == _functionsById.end())
+		return NULL;
+	return fit->second;
 }
 
 void Plugin::showPreferences()

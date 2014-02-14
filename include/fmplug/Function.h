@@ -85,6 +85,8 @@ public:
 
 	const ArgumentType getReturnType() const { return _retType; }
 	void setReturnType(ArgumentType type) { _retType = type; }
+	static std::string getArgumentTypeName(ArgumentType type);
+	static std::string getFMXTypeName(fmx::Data::DataType type);
 
 	void call(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Data& result);
 

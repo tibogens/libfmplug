@@ -63,6 +63,8 @@ public:
 
 	virtual void showPreferences();
 
+	const Function* const getFunction(short int id) const;
+
 protected:
 	virtual void declareFunctions();
 	void registerFunction(Function* function);

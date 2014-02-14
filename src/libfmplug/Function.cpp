@@ -96,6 +96,50 @@ int Function::getMaxArgs() const
 		return (int)_args.size();
 }
 
+std::string Function::getArgumentTypeName(ArgumentType type)
+{
+	switch (type)
+	{
+	case AT_VARIANT:
+		return "any";
+	case AT_TEXT:
+		return "text";
+	case AT_INTEGER:
+		return "int";
+	case AT_DATETIME:
+		return "date";
+	case AT_FLOAT:
+		return "float";
+	default:
+		throw Error("Unknown argument type id: %d", static_cast<int>(type));
+	}
+}
+
+std::string Function::getFMXTypeName(fmx::Data::DataType type)
+{
+	switch (type)
+	{
+	case fmx::Data::kDTInvalid:
+		return "kDTInvalid";
+	case fmx::Data::kDTText:
+		return "kDTText";
+	case fmx::Data::kDTNumber:
+		return "kDTNumber";
+	case fmx::Data::kDTDate:
+		return "kDTDate";
+	case fmx::Data::kDTTime:
+		return "kDTTime";
+	case fmx::Data::kDTTimeStamp:
+		return "kDTTimeStamp";
+	case fmx::Data::kDTBinary:
+		return "kDTBinary";
+	case fmx::Data::kDTBoolean:
+		return "kDTBoolean";
+	default:
+		throw Error("Unknown FMX data type id: %d", static_cast<int>(type));
+	}
+}
+
 void Function::parseDeclaration(const std::string& declaration)
 {
 	// Grammar for the declaration:
@@ -296,4 +340,46 @@ void Function::call(const fmx::ExprEnv& env, const fmx::DataVect& parms, fmx::Da
 
 	// Call the actual implementation
 	(*this)(env, parms, result);
+
+	// Check the return type
+	bool acceptable = false;
+	if (_retType == AT_VARIANT)
+	{
+		// Functions returning variants can return anything, as long 
+		// as it's not invalid.
+		acceptable = result.GetNativeType() != fmx::Data::kDTInvalid;
+	}
+	else
+	{
+		// Make sure the actual return type is compatible with the
+		// function declaration.
+		switch (result.GetNativeType())
+		{
+		case fmx::Data::kDTInvalid:
+			acceptable = false;
+			break;
+		case fmx::Data::kDTText:
+			if (_retType == AT_TEXT)
+				acceptable = true;
+			break;
+		case fmx::Data::kDTNumber:
+		case fmx::Data::kDTBoolean:
+			if (_retType == AT_INTEGER)
+				acceptable = true;
+			break;
+		case fmx::Data::kDTDate:
+		case fmx::Data::kDTTime:
+		case fmx::Data::kDTTimeStamp:
+			if (_retType == AT_DATETIME)
+				acceptable = true;
+			break;
+		case fmx::Data::kDTBinary:
+			// Binary blobs are unhandled for the time being
+			acceptable = false;
+			break;
+		}
+	}
+
+	if (!acceptable)
+		throw Error("Invalid return type: expected '%s', found '%s'", getFMXTypeName(result.GetNativeType()).c_str(), getArgumentTypeName(_retType).c_str());
 }

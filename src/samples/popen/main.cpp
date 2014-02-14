@@ -85,7 +85,7 @@ public:
 	SubprocessCall() : Function("subprocess_call", Function::Arguments(), fmplug::Function::F_UNLIMITED_ARGUMENTS) 
 	{
 		addArgument(Argument(AT_TEXT, "command"));
-		setReturnType(Function::AT_INTEGER);
+		setReturnType(Function::AT_TEXT);
 	}
 
 
