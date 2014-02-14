@@ -35,7 +35,7 @@ using namespace fmplug;
 Error::Error()
 {
 #ifdef _DEBUG
-	std::cout << "DEBUG: thrown ce::Error (without message)" << std::endl;
+	std::cout << "DEBUG: thrown fmplug::Error (without message)" << std::endl;
 #endif
 }
 
@@ -50,7 +50,7 @@ Error::Error(const char* reason, ...)
 	format(reason, arglist);
 	
 #ifdef _DEBUG
-	std::cout << "DEBUG: thrown ce::Error : " << _reason << std::endl;
+	std::cout << "DEBUG: thrown fmplug::Error : " << _reason << std::endl;
 #endif
 }
 
@@ -71,7 +71,7 @@ void Error::format(const char* in, va_list arglist)
 	_reason = buffer;
 }
 
-std::ostream& fmplug::operator<<(std::ostream& stream, const /*ce::*/Error& err)
+std::ostream& fmplug::operator<<(std::ostream& stream, const Error& err)
 {
 	stream << err._reason;
 	return stream;

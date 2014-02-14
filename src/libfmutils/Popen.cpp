@@ -127,7 +127,7 @@ private:
 			// fail when you want the input thread to exit.
 			//if ( (hStdIn = GetStdHandle(STD_INPUT_HANDLE)) ==
 			//	INVALID_HANDLE_VALUE )
-			//	throw ce::Error::System("GetStdHandle");
+			//	throw fmplug::Error::System("GetStdHandle");
 		}
 		catch (fmplug::Error&)
 		{
@@ -205,10 +205,10 @@ private:
 /*	void cleanup()
 	{
 		//if (WaitForSingleObject(hThread,INFINITE) == WAIT_FAILED)
-		//	throw ce::Error::System("WaitForSingleObject");
+		//	throw fmplug::Error::System("WaitForSingleObject");
 
-		if (!CloseHandle(hOutputRead)) throw ce::Error::System("CloseHandle");
-		if (!CloseHandle(hInputWrite)) throw ce::Error::System("CloseHandle");
+		if (!CloseHandle(hOutputRead)) throw fmplug::Error::System("CloseHandle");
+		if (!CloseHandle(hInputWrite)) throw fmplug::Error::System("CloseHandle");
 	}*/
 
 	void readOutput(std::ostream& output)
@@ -232,7 +232,7 @@ private:
 			// Display the character read on the screen.
 			//if (!WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE),lpBuffer,
 			//	nBytesRead,&nCharsWritten,NULL))
-			//	throw ce::Error::System("WriteConsole");
+			//	throw fmplug::Error::System("WriteConsole");
 		}
 	}
 
@@ -336,7 +336,7 @@ void main ()
 	// Launch the thread that gets the input and sends it to the child.
 	hThread = CreateThread(NULL,0,GetAndSendInputThread,
 		(LPVOID)hInputWrite,0,&ThreadId);
-	if (hThread == NULL) throw ce::Error::System("CreateThread");
+	if (hThread == NULL) throw fmplug::Error::System("CreateThread");
 
 
 	// Read the child's output.
@@ -345,7 +345,7 @@ void main ()
 
 
 	// Force the read on the input to return by closing the stdin handle.
-	if (!CloseHandle(hStdIn)) throw ce::Error::System("CloseHandle");
+	if (!CloseHandle(hStdIn)) throw fmplug::Error::System("CloseHandle");
 
 
 	// Tell the thread to exit and wait for thread to die.
@@ -370,7 +370,7 @@ DWORD WINAPI GetAndSendInputThread(LPVOID lpvThreadParam)
 	while (bRunThread)
 	{
 		if(!ReadConsole(hStdIn,read_buff,1,&nBytesRead,NULL))
-			throw ce::Error::System("ReadConsole");
+			throw fmplug::Error::System("ReadConsole");
 
 		read_buff[nBytesRead] = '\0'; // Follow input with a NULL.
 
@@ -379,7 +379,7 @@ DWORD WINAPI GetAndSendInputThread(LPVOID lpvThreadParam)
 			if (GetLastError() == ERROR_NO_DATA)
 				break; // Pipe was closed (normal exit path).
 			else
-				throw ce::Error::System("WriteFile");
+				throw fmplug::Error::System("WriteFile");
 		}
 	}
 
@@ -415,7 +415,7 @@ Popen::~Popen()
 void Popen::checkStatus(Status expected) const
 {
 	if (_status != expected)
-		throw fmplug::Error("ce::Popen::checkStatus() : current status is %d, API only allows this call when status is %d", _status, expected); 
+		throw fmplug::Error("fmplug::Popen::checkStatus() : current status is %d, API only allows this call when status is %d", _status, expected); 
 }
 
 void Popen::start()
@@ -458,7 +458,7 @@ int Popen::wait()
 void Popen::reset()
 {
 	if (_status != CHILD_SUCCESS && _status != CHILD_FAILURE)
-		throw fmplug::Error("ce::Popen::checkStatus() : current status is %d, API does not allow that.", _status); 
+		throw fmplug::Error("fmplug::Popen::checkStatus() : current status is %d, API does not allow that.", _status); 
 	
 	_command = "";
 	_args.clear();
@@ -493,7 +493,7 @@ void Popen::setStdIn(const std::string& in)
 const std::string& Popen::getStdOut() const
 {
 	if (_status != CHILD_SUCCESS && _status != CHILD_FAILURE)
-		throw fmplug::Error("ce::Popen::checkStatus() : current status is %d, API does not allow that.", _status); 
+		throw fmplug::Error("fmplug::Popen::checkStatus() : current status is %d, API does not allow that.", _status); 
 	return _stdout;
 }
 
