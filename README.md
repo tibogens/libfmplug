@@ -13,4 +13,5 @@ However:
 - the FileMaker Pro™ SDK (headers and libraries) is the property of FileMaker, Inc. and can only be used to "enable
  licensees of FileMaker Pro Advanced to compile plug-ins for use with FileMaker products" (refer to the notice in FMWrapper/FMX*.h files)
 
-Please note that if your plugin needs to be linked against the static version of libfmplug, you need to follow [the requirements explained in the GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html#LGPLStaticVsDynamic).
+Please note that if your plugin needs to be linked against the static version of libfmplug, you need to follow [the requirements explained in the GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html#LGPLStaticVsDynamic). [Issue 1](https://github.com/tibogens/libfmplug/issues/1) is the place to discuss this.
+
